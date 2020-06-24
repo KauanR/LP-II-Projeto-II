@@ -2,9 +2,18 @@ package br.com.uri.scopa.models;
 
 public class Player {
 
+	private String name;
 	private int points;
 	private Deck hand;
 	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getPoints() {
 		return points;
 	}
