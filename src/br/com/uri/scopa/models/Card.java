@@ -6,6 +6,12 @@ public class Card {
 	private int value;
 	private String suit;
 	
+	public Card(String name, int value, String suit) {
+		this.name = name;
+		this.value = value;
+		this.suit = suit;
+	}
+
 	public String getName() {
 		return name;
 	}
