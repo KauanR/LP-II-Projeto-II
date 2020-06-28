@@ -1,10 +1,12 @@
 package br.com.uri.scopa.models;
 
+import java.util.ArrayList;
+
 public class Player {
 
 	private String name;
 	private int points;
-	private Deck hand;
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	
 	public String getName() {
 		return name;
@@ -22,11 +24,11 @@ public class Player {
 		this.points = points;
 	}
 
-	public Deck getHand() {
+	public ArrayList<Card> getHand() {
 		return hand;
 	}
 
-	public void setHand(Deck hand) {
+	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
 	
