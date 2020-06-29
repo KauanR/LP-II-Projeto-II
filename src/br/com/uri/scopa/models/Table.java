@@ -26,10 +26,4 @@ public class Table {
 		this.cards.removeAll(cards);
 	}
 
-	public void printTable() {
-		System.out.println("Mesa: ");
-		for(Card card : this.cards) {
-			card.printCard(this.cards.indexOf(card) + 1);
-		}
-	}
 }

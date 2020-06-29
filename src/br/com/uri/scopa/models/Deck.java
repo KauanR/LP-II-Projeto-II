@@ -14,4 +14,7 @@ public class Deck {
 		this.cards = cards;
 	}
 	
+	public void removeCard(Card card) {
+		this.cards.remove(card);
+	}
 }

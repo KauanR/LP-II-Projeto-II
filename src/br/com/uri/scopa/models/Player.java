@@ -42,9 +42,6 @@ public class Player {
 	
 	
 	public void printPlayer() {
-		System.out.println("Jogador " + this.name + ": ");
-		for(Card card : this.hand) {
-			card.printCard(this.hand.indexOf(card) + 1);
-		}
+		System.out.println("Jogador " + this.name + ":");
 	}
 }
