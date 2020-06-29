@@ -1,0 +1,5 @@
+- checar o bagulho q faz as jogadas
+- pontos personalizados
+- final do jogo
+- extras
+- sysouts da jogada(se estiver de boas)

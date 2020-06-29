@@ -36,5 +36,11 @@ public class Card {
 		this.suit = suit;
 	}
 	
+	public void printCard(int index) {
+		System.out.println("Carta " + index + ": " + this.name + " de " + this.suit + "(valor: " + this.value + ")");
+	}
 	
+	public void printCard(String index) {
+		System.out.println("Carta " + index + ": " + this.name + " de " + this.suit + "(valor: " + this.value + ")");
+	}
 }

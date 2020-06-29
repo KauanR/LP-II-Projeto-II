@@ -13,20 +13,30 @@ public class GameView {
 	private Player player2 = new Player();
 	private Deck deck = new Deck();
 	private Table table = new Table();
-	DeckController deckController = new DeckController();
-	PlayerController playerController = new PlayerController();
-	TableController tableController = new TableController();
+	private DeckController deckController = new DeckController();
+	private PlayerController playerController = new PlayerController();
+	private TableController tableController = new TableController();
 	
 	public void init() {
 		deckController.initDeck(deck);
+		
 		System.out.println("Digite o nome do jogador 1: ");
 		playerController.initPlayer(player1, deck);
+		
 		System.out.println("Digite o nome do jogador 2: ");
 		playerController.initPlayer(player2, deck);
-		tableController.initTable(deck, table);
+		
+		tableController.initTable(table, deck);
+
+		this.gameStart();
+	}
+
+	public void gameStart() {
+		while(!deckController.isEmpty(this.deck)) {
+			this.playerController.playerMove(player1, table);
+			this.playerController.playerMove(player2, table);
+
+		}
 	}
 	
-	public void showTable() {
-		// TODO fazer ainda né
-	}
 }

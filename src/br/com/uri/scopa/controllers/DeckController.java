@@ -42,4 +42,8 @@ public class DeckController {
 		Collections.shuffle(cards);
 		deck.setCards(cards);
 	}
+
+	public boolean isEmpty(Deck deck) {
+		return deck.getCards().size() == 0;
+	}
 }

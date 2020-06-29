@@ -32,4 +32,19 @@ public class Player {
 		this.hand = hand;
 	}
 	
+	public void addCard(Card card) {
+		this.hand.add(card);
+	}
+	
+	public void removeCard(Card card) {
+		this.hand.remove(card);
+	}
+	
+	
+	public void printPlayer() {
+		System.out.println("Jogador " + this.name + ": ");
+		for(Card card : this.hand) {
+			card.printCard(this.hand.indexOf(card) + 1);
+		}
+	}
 }

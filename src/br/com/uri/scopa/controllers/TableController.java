@@ -8,7 +8,7 @@ import br.com.uri.scopa.models.Table;
 
 public class TableController {
 
-	public void initTable(Deck deck, Table table) {
+	public void initTable(Table table, Deck deck) {
 		ArrayList<Card> hand = new ArrayList<Card>() {{
 			add(deck.getCards().get(0));
 			add(deck.getCards().get(1));
@@ -18,4 +18,5 @@ public class TableController {
 		table.setCards(hand);
 		deck.getCards().removeIf(card -> hand.contains(card));
 	}
+
 }
