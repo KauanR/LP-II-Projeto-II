@@ -85,14 +85,14 @@ public class RoundController extends Common {
 		}
 		boolean validMove = total == 15;
 		if(validMove) {
-			this.moveEnd(player, table, cards);
+			this.roundEnd(player, table, cards);
 		} else {
 			System.out.println("Sua jogada não fechou os 15 pontos, por favor, tente novamente.");
 		}
 		return !validMove;
 	}
 
-	private void moveEnd(Player player, Table table, ArrayList<Card> moveCards) {
+	private void roundEnd(Player player, Table table, ArrayList<Card> moveCards) {
 		player.removeCard(moveCards.get(0));
 		moveCards.remove(0);
 		table.removeCard(moveCards);
