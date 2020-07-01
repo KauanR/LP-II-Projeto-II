@@ -49,7 +49,7 @@ public class PlayerController extends Common {
 	}
 	
 	public void addScoreCards(Player player, ArrayList<Card> moveCards) {
-		
+		player.addScoreCards(moveCards);
 	}
 
 }
