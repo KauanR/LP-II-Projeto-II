@@ -36,7 +36,7 @@ public class GameView {
 		this.gameStart();
 	}
 
-	public void gameStart() {
+	private void gameStart() {
 		int round = 1;
 		while(!deckController.isEmpty(this.deck)) {
 			System.out.println("- - - - - - - - Rodada " + round + " - - - - - - - -");
@@ -44,13 +44,18 @@ public class GameView {
 			this.playerMoveHandler(player2);
 			round++;
 		}
+		
+		this.gameEnd();
 	}
 	
-	public void playerMoveHandler(Player player) {
+	private void playerMoveHandler(Player player) {
 		ArrayList<Card> moveCards = new ArrayList<Card>();
 		moveCards.addAll(this.roundController.playerMove(player, this.table));
 		this.playerController.checkEmptyHand(player, this.deck);
-		this.playerController.pointsAdder(player, moveCards);
+		this.playerController.addScoreCards(player, moveCards);
 	}
 
+	private void gameEnd() {
+		
+	}
 }

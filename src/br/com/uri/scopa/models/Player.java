@@ -7,6 +7,7 @@ public class Player {
 	private String name;
 	private int points;
 	private ArrayList<Card> hand = new ArrayList<Card>();
+	private ArrayList<Card> scoreCards = new ArrayList<Card>();
 	
 	public String getName() {
 		return name;
@@ -32,15 +33,26 @@ public class Player {
 		this.hand = hand;
 	}
 	
-	public void addCard(Card card) {
+	public void addHandCard(Card card) {
 		this.hand.add(card);
 	}
 	
-	public void removeCard(Card card) {
+	public void removeHandCard(Card card) {
 		this.hand.remove(card);
 	}
 	
+	public ArrayList<Card> getScoreCards() {
+		return scoreCards;
+	}
+
+	public void setScoreCards(ArrayList<Card> scoreCards) {
+		this.scoreCards = scoreCards;
+	}
 	
+	public void addScoreCards(ArrayList<Card> scoreCards) {
+		this.scoreCards.addAll(scoreCards);
+	}
+
 	public void printPlayer() {
 		System.out.println("JOGADOR " + this.name + ":");
 	}

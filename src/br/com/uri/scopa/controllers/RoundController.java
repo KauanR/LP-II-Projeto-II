@@ -26,7 +26,7 @@ public class RoundController extends Common {
 			Card handCard = this.pickCard(player.getHand());
 			scanner.nextLine();
 			if(this.checkDiscard().equals("D")) {
-				player.removeCard(handCard);
+				player.removeHandCard(handCard);
 				table.addCard(handCard);
 				move = false;
 				break;
@@ -93,10 +93,9 @@ public class RoundController extends Common {
 	}
 
 	private void roundEnd(Player player, Table table, ArrayList<Card> moveCards) {
-		player.removeCard(moveCards.get(0));
+		player.removeHandCard(moveCards.get(0));
 		moveCards.remove(0);
 		table.removeCard(moveCards);
 	}
-	
 	
 }

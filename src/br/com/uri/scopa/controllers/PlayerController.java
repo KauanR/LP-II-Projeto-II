@@ -47,8 +47,9 @@ public class PlayerController extends Common {
 			player.setHand(newHandCards);
 		}
 	}
-
-	public void pointsAdder(Player player, ArrayList<Card> moveCards) {
+	
+	public void addScoreCards(Player player, ArrayList<Card> moveCards) {
 		
 	}
+
 }
