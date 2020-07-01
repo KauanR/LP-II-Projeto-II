@@ -1,9 +1,12 @@
 package br.com.uri.scopa.views;
 
+import java.util.ArrayList;
+
 import br.com.uri.scopa.controllers.DeckController;
 import br.com.uri.scopa.controllers.PlayerController;
 import br.com.uri.scopa.controllers.RoundController;
 import br.com.uri.scopa.controllers.TableController;
+import br.com.uri.scopa.models.Card;
 import br.com.uri.scopa.models.Deck;
 import br.com.uri.scopa.models.Player;
 import br.com.uri.scopa.models.Table;
@@ -37,12 +40,17 @@ public class GameView {
 		int round = 1;
 		while(!deckController.isEmpty(this.deck)) {
 			System.out.println("- - - - - - - - Rodada " + round + " - - - - - - - -");
-			this.roundController.playerMove(player1, table, deck);
-			this.roundController.playerMove(player2, table, deck);
-			this.playerController.checkEmptyHand(player1, deck);
-			this.playerController.checkEmptyHand(player2, deck);
+			this.playerMoveHandler(player1);
+			this.playerMoveHandler(player2);
 			round++;
 		}
 	}
 	
+	public void playerMoveHandler(Player player) {
+		ArrayList<Card> moveCards = new ArrayList<Card>();
+		moveCards.addAll(this.roundController.playerMove(player, this.table));
+		this.playerController.checkEmptyHand(player, this.deck);
+		this.playerController.pointsAdder(player, moveCards);
+	}
+
 }

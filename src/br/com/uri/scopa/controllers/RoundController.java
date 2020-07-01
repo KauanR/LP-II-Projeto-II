@@ -3,14 +3,14 @@ package br.com.uri.scopa.controllers;
 import java.util.ArrayList;
 
 import br.com.uri.scopa.models.Card;
-import br.com.uri.scopa.models.Deck;
 import br.com.uri.scopa.models.Player;
 import br.com.uri.scopa.models.Table;
 
 public class RoundController extends Common {
 	
-	public void playerMove(Player player, Table table, Deck deck) {
+	public ArrayList<Card> playerMove(Player player, Table table) {
 		player.printPlayer();
+		
 		System.out.println("CARTAS DA MESA:");
 		this.printCardArray(table.getCards(), false);
 		System.out.println("CARTAS DO JOGADOR:");
@@ -18,8 +18,10 @@ public class RoundController extends Common {
 		System.out.println("---------------------------");
 		
 		boolean move = true;
+		ArrayList<Card> moveCards = new ArrayList<Card>();
+		
 		while(move) {
-			ArrayList<Card> moveCards = new ArrayList<Card>();
+			moveCards.clear();
 			System.out.println("Quais cartas você irá juntar da sua mão?");
 			Card handCard = this.pickCard(player.getHand());
 			scanner.nextLine();
@@ -36,6 +38,7 @@ public class RoundController extends Common {
 			
 			move = this.checkMove(player, table, moveCards);
 		}
+		return moveCards;
 	}
 
 	private Card pickCard(ArrayList<Card> cards) {

@@ -48,4 +48,7 @@ public class PlayerController extends Common {
 		}
 	}
 
+	public void pointsAdder(Player player, ArrayList<Card> moveCards) {
+		
+	}
 }
