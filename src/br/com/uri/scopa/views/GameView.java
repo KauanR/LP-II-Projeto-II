@@ -39,6 +39,8 @@ public class GameView {
 			System.out.println("- - - - - - - - Rodada " + round + " - - - - - - - -");
 			this.roundController.playerMove(player1, table, deck);
 			this.roundController.playerMove(player2, table, deck);
+			this.playerController.checkEmptyHand(player1, deck);
+			this.playerController.checkEmptyHand(player2, deck);
 			round++;
 		}
 	}

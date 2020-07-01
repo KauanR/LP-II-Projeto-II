@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import br.com.uri.scopa.models.Card;
 import br.com.uri.scopa.models.Deck;
 import br.com.uri.scopa.models.Player;
-import br.com.uri.scopa.models.Table;
 
 public class PlayerController extends Common {
 
@@ -17,7 +16,7 @@ public class PlayerController extends Common {
 	
 	private void setPlayerName(Player player) {
 		player.setName(scanner.nextLine());
-		while(this.isEmptyString(player.getName())) {
+		while(player.getName().equals("")) {
 			this.invalidValuePrint();
 			player.setName(scanner.nextLine());
 		}
@@ -35,6 +34,18 @@ public class PlayerController extends Common {
 		}};
 		player.setHand(hand);
 		deck.getCards().removeIf(card -> hand.contains(card));
+	}
+	
+	public void checkEmptyHand(Player player, Deck deck) {
+		if(player.getHand().isEmpty()) {
+			ArrayList<Card> newHandCards = new ArrayList<Card>();
+			for(int i = 0; i < 3; i++) {
+				Card aux = deck.getCards().get(i);
+				newHandCards.add(aux);
+				deck.removeCard(aux);
+			}
+			player.setHand(newHandCards);
+		}
 	}
 
 }

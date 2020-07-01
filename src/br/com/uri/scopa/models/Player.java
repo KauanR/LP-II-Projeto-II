@@ -42,6 +42,6 @@ public class Player {
 	
 	
 	public void printPlayer() {
-		System.out.println("Jogador " + this.name + ":");
+		System.out.println("JOGADOR " + this.name + ":");
 	}
 }

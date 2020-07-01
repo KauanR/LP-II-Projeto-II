@@ -12,14 +12,12 @@ public class Common {
 	public void invalidValuePrint() {
 		System.out.println("Valor inválido, digite novamente: ");
 	}
-
-	public boolean isEmptyString(String str) {
-		return str.equals("");
-	}
 	
-	public void printCardArray(ArrayList<Card> cards) {
-		for(Card card : cards) {
-			card.printCard(cards.indexOf(card) + 1);
+	public void printCardArray(ArrayList<Card> cards, boolean indexFlag) {
+		if(indexFlag) {			
+			cards.forEach(el -> el.printCard(cards.indexOf(el) + 1));
+		} else {
+			cards.forEach(el -> el.printCard());
 		}
 	}
 }

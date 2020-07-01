@@ -11,16 +11,15 @@ public class RoundController extends Common {
 	
 	public void playerMove(Player player, Table table, Deck deck) {
 		player.printPlayer();
-		System.out.println("---------------------------");
-		System.out.println("Cartas da Mesa:");
-		this.printCardArray(table.getCards());
-		System.out.println("Cartas do Jogador:");
-		this.printCardArray(player.getHand());
+		System.out.println("CARTAS DA MESA:");
+		this.printCardArray(table.getCards(), false);
+		System.out.println("CARTAS DO JOGADOR:");
+		this.printCardArray(player.getHand(), false);
 		System.out.println("---------------------------");
 		
-		ArrayList<Card> choosedCards = new ArrayList<Card>();
 		boolean move = true;
 		while(move) {
+			ArrayList<Card> moveCards = new ArrayList<Card>();
 			System.out.println("Quais cartas você irá juntar da sua mão?");
 			Card handCard = this.pickCard(player.getHand());
 			scanner.nextLine();
@@ -30,18 +29,17 @@ public class RoundController extends Common {
 				move = false;
 				break;
 			}
-			choosedCards.add(handCard);
+			moveCards.add(handCard);
 			
 			System.out.println("E quais da mesa?");
-			choosedCards.addAll(pickTableCards(table.getCards()));
+			moveCards.addAll(pickTableCards(table.getCards()));
 			
-			move = this.checkMove(player, table, choosedCards);
+			move = this.checkMove(player, table, moveCards);
 		}
-		this.checkEmptyHand(player, table, deck);
 	}
 
 	private Card pickCard(ArrayList<Card> cards) {
-		this.printCardArray(cards);
+		this.printCardArray(cards, true);
 		int aux = scanner.nextInt();
 		if(aux < 0 && aux >= cards.size()) {
 			this.invalidValuePrint();
@@ -62,15 +60,19 @@ public class RoundController extends Common {
 	}
 	
 	private ArrayList<Card> pickTableCards(ArrayList<Card> cards)  {
-		ArrayList<Card> tableCards = new ArrayList<Card>();
+		ArrayList<Card> cardsBackup = new ArrayList<Card>() {{
+			addAll(cards);
+		}};
+		ArrayList<Card> selectedCards = new ArrayList<Card>();
 		boolean aux = true;
 		while(aux) {
-			Card tableCard = this.pickCard(cards);
-			tableCards.add(tableCard);
+			Card selectedCard = this.pickCard(cardsBackup);
+			selectedCards.add(selectedCard);
+			cardsBackup.remove(selectedCard);
 			System.out.println("Adicionar outra?(s/n)");
 			aux = scanner.next().toLowerCase().equals("s");
 		}
-		return tableCards;
+		return selectedCards;
 	}
 	
 	private boolean checkMove(Player player, Table table, ArrayList<Card> cards) {
@@ -78,25 +80,20 @@ public class RoundController extends Common {
 		for(Card el : cards) {
 			total += el.getValue();
 		}
-		this.clearSelectedCards(player, table, cards);
-		return total != 15;
+		boolean validMove = total == 15;
+		if(validMove) {
+			this.moveEnd(player, table, cards);
+		} else {
+			System.out.println("Sua jogada não fechou os 15 pontos, por favor, tente novamente.");
+		}
+		return !validMove;
 	}
 
-	private void clearSelectedCards(Player player, Table table, ArrayList<Card> cards) {
-		player.removeCard(cards.get(0));
-		cards.remove(0);
-		table.removeCard(cards);
+	private void moveEnd(Player player, Table table, ArrayList<Card> moveCards) {
+		player.removeCard(moveCards.get(0));
+		moveCards.remove(0);
+		table.removeCard(moveCards);
 	}
 	
-	private void checkEmptyHand(Player player, Table table, Deck deck) {
-		if(player.getHand().isEmpty()) {
-			ArrayList<Card> newHandCards = new ArrayList<Card>();
-			for(int i = 0; i < 3; i++) {
-				Card aux = deck.getCards().get(i);
-				newHandCards.add(aux);
-				deck.removeCard(aux);
-			}
-			player.setHand(newHandCards);
-		}
-	}
+	
 }

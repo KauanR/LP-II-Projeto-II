@@ -40,7 +40,7 @@ public class Card {
 		System.out.println("Carta " + index + ": " + this.name + " de " + this.suit + "(valor: " + this.value + ")");
 	}
 	
-	public void printCard(String index) {
-		System.out.println("Carta " + index + ": " + this.name + " de " + this.suit + "(valor: " + this.value + ")");
+	public void printCard() {
+		System.out.println(this.name + " de " + this.suit);
 	}
 }
