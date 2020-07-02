@@ -9,15 +9,10 @@ import br.com.uri.scopa.models.Table;
 public class PointsController {
 
 	public void finalPointsHandler(Player player1, Player player2) {
-		ArrayList<Player> players = new ArrayList<Player>() {{
-			add(player1);
-			add(player2);
-		}};
-		
-		for(Player player : players) {
-			this.checkSevenGold(player);
-			this.checkMostOfSevens(player);
-		};
+		this.checkSevenGold(player1);
+		this.checkSevenGold(player2);
+		this.checkMostOfSevens(player1);
+		this.checkMostOfSevens(player2);
 		this.checkMostGolds(player1, player2);
 		this.checkMostCards(player1, player2);
 	}
@@ -26,7 +21,6 @@ public class PointsController {
 		player.addScoreCards(moveCards);
 		player.increasePoints(points);
 	}
-	
 	
 	public void checkScopa(Player player, ArrayList<Card> moveCards, Table table) {
 		if(table.getCards().isEmpty()) {
@@ -37,7 +31,6 @@ public class PointsController {
 			this.addScoreCards(player, moveCards, 0);	
 		}
 	}
-	
 	
 	private void checkMostGolds(Player player1, Player player2) {
 		ArrayList<Card> p1Backup = new ArrayList<Card>() {{
