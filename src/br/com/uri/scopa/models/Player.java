@@ -8,6 +8,7 @@ public class Player {
 	private int points;
 	private ArrayList<Card> hand = new ArrayList<Card>();
 	private ArrayList<Card> scoreCards = new ArrayList<Card>();
+	private ScoreHistory scoreHistory;
 	
 	public String getName() {
 		return name;
@@ -55,6 +56,14 @@ public class Player {
 	
 	public void addScoreCards(ArrayList<Card> scoreCards) {
 		this.scoreCards.addAll(scoreCards);
+	}
+
+	public ScoreHistory getScoreHistory() {
+		return scoreHistory;
+	}
+
+	public void setScoreHistory(ScoreHistory scoreHistory) {
+		this.scoreHistory = scoreHistory;
 	}
 
 	public void printPlayer() {

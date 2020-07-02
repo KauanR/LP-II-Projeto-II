@@ -25,6 +25,8 @@ public class GameView {
 	private TableController tableController = new TableController();
 	private PointsController pointsController = new PointsController();
 	
+	private GameEndView gameEndView = new GameEndView();
+	
 	public void init() {
 		boolean playAgain = true;
 		while(playAgain) {			
@@ -39,8 +41,7 @@ public class GameView {
 			tableController.initTable(table, deck);
 			
 			this.gameStart();
-			
-			GameEndView gameEndView = new GameEndView();
+
 			playAgain = gameEndView.init(player1, player2);
 		}
 	}
