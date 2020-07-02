@@ -5,9 +5,8 @@ import br.com.uri.scopa.views.GameView;
 public class Main {
 	
 	public static void main(String[] args) {
-		
-		GameView gameView = new GameView();
-		gameView.init();
+		GameView game = new GameView();
+		game.init();
 	}
 	
 }

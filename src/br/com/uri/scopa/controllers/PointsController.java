@@ -29,10 +29,13 @@ public class PointsController {
 	
 	
 	public void checkScopa(Player player, ArrayList<Card> moveCards, Table table) {
-		if(table.getCards().isEmpty())
+		if(table.getCards().isEmpty()) {
+			System.out.println("1");
 			this.addScoreCards(player, moveCards, 1);
-		else
-			this.addScoreCards(player, moveCards, 0);
+		} else {
+			System.out.println(0);
+			this.addScoreCards(player, moveCards, 0);	
+		}
 	}
 	
 	

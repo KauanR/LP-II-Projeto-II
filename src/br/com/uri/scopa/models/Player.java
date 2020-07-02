@@ -66,7 +66,4 @@ public class Player {
 		this.scoreHistory = scoreHistory;
 	}
 
-	public void printPlayer() {
-		System.out.println("JOGADOR " + this.name + ":");
-	}
 }

@@ -8,14 +8,14 @@ import br.com.uri.scopa.models.Table;
 
 public class RoundController extends Common {
 	
-	public ArrayList<Card> playerMove(Player player, Table table) {
-		player.printPlayer();
+	public ArrayList<Card> playerMove(Player player, Table table, int roundNumber) {
+		System.out.println("- - - - - - - - - Rodada " + roundNumber + "(Jogador: " + player.getName() + ") - - - - - - - - -");
 		
-		System.out.println("CARTAS DA MESA:");
-		this.printCardArray(table.getCards(), false);
 		System.out.println("CARTAS DO JOGADOR:");
 		this.printCardArray(player.getHand(), false);
-		System.out.println("---------------------------");
+		System.out.println("CARTAS DA MESA:");
+		this.printCardArray(table.getCards(), false);
+		System.out.println("- - - - - - - - - - - - - - - - - -");
 		
 		boolean move = true;
 		ArrayList<Card> moveCards = new ArrayList<Card>();

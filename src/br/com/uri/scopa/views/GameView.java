@@ -32,11 +32,11 @@ public class GameView {
 		while(playAgain) {			
 			deckController.initDeck(deck);
 			
-			System.out.println("Digite o nome do jogador 1: ");
-			playerController.initPlayer(player1, deck);
+			System.out.println("Digite o nome do Jogador 1: ");
+			playerController.initPlayer(player1, "player1", deck);
 			
-			System.out.println("Digite o nome do jogador 2: ");
-			playerController.initPlayer(player2, deck);
+			System.out.println("Digite o nome do Jogador 2: ");
+			playerController.initPlayer(player2, "player2", deck);
 			
 			tableController.initTable(table, deck);
 			
@@ -47,18 +47,17 @@ public class GameView {
 	}
 
 	private void gameStart() {
-		int round = 1;
+		int roundNumber = 1;
 		while(!deckController.isEmpty(this.deck)) {
-			System.out.println("- - - - - - - - Rodada " + round + " - - - - - - - -");
-			this.playerMoveHandler(player1);
-			this.playerMoveHandler(player2);
-			round++;
+			this.playerMoveHandler(player1, roundNumber);
+			this.playerMoveHandler(player2, roundNumber);
+			roundNumber++;
 		}
 	}
 	
-	private void playerMoveHandler(Player player) {
+	private void playerMoveHandler(Player player, int roundNumber) {
 		ArrayList<Card> moveCards = new ArrayList<Card>();
-		moveCards.addAll(this.roundController.playerMove(player, this.table));
+		moveCards.addAll(this.roundController.playerMove(player, this.table, roundNumber));
 		this.playerController.checkEmptyHand(player, this.deck);
 		this.pointsController.checkScopa(player, moveCards, this.table);
 	}

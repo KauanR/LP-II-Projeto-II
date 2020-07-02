@@ -1,0 +1,5 @@
+victories:0
+losses:0
+draws:0
+numberOfGames:0
+highestPontuation:0

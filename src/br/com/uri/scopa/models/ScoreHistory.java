@@ -7,6 +7,14 @@ public class ScoreHistory {
 	private int draws;
 	private int numberOfGames;
 	private int highestPontuation;
+	
+	public ScoreHistory(int victories, int losses, int draws, int numberOfGames, int highestPontuation) {
+		this.victories = victories;
+		this.losses = losses;
+		this.draws = draws;
+		this.numberOfGames = numberOfGames;
+		this.highestPontuation = highestPontuation;
+	}
 
 	public int getVictories() {
 		return victories;

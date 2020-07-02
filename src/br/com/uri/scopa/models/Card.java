@@ -41,6 +41,6 @@ public class Card {
 	}
 	
 	public void printCard() {
-		System.out.println(this.name + " de " + this.suit);
+		System.out.println(this.name + " de " + this.suit + "(valor: " + this.value + ")");
 	}
 }

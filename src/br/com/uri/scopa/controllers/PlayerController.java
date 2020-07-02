@@ -1,17 +1,25 @@
 package br.com.uri.scopa.controllers;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import br.com.uri.scopa.models.Card;
 import br.com.uri.scopa.models.Deck;
 import br.com.uri.scopa.models.Player;
+import br.com.uri.scopa.models.ScoreHistory;
 
 public class PlayerController extends Common {
 
-	public void initPlayer(Player player, Deck deck) {
+	public void initPlayer(Player player, String playerNumber, Deck deck) {
 		this.setPlayerName(player);
 		this.setPlayerPoints(player);
 		this.setPlayerHand(player, deck);
+		this.setPlayerScoreHistory(player, playerNumber);
 	}
 	
 	private void setPlayerName(Player player) {
@@ -24,6 +32,27 @@ public class PlayerController extends Common {
 	
 	private void setPlayerPoints(Player player) {
 		player.setPoints(0);
+	}
+	
+	private void setPlayerScoreHistory(Player player, String playerNumber) {
+		try {
+			BufferedReader playerFileR = new BufferedReader(new FileReader("src/br/com/uri/scopa/" + playerNumber + ".txt"));
+			int scores[] = {0, 0, 0, 0, 0};
+			int currentLine = 0;
+			String line;
+			
+			while((line = playerFileR.readLine()) != null) {
+				int index = line.indexOf(":") + 1;
+				scores[currentLine] = Integer.parseInt(line.substring(index));
+				currentLine++;
+			}
+			player.setScoreHistory(new ScoreHistory(scores[0], scores[1], scores[2], scores[3], scores[4]));
+			
+			playerFileR.close();
+		} catch (IOException e) {
+			System.out.println(e);
+			e.printStackTrace();
+		}
 	}
 	
 	private void setPlayerHand(Player player, Deck deck) {
