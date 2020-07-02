@@ -15,7 +15,7 @@ import br.com.uri.scopa.models.ScoreHistory;
 
 public class PlayerController extends Common {
 
-	public void initPlayer(Player player, String playerNumber, Deck deck) {
+	public void initPlayer(Player player, String playerNumber, Deck deck) throws IOException  {
 		this.setPlayerName(player);
 		this.setPlayerPoints(player);
 		this.setPlayerHand(player, deck);
@@ -34,25 +34,20 @@ public class PlayerController extends Common {
 		player.setPoints(0);
 	}
 	
-	private void setPlayerScoreHistory(Player player, String playerNumber) {
-		try {
-			BufferedReader playerFileR = new BufferedReader(new FileReader("src/br/com/uri/scopa/" + playerNumber + ".txt"));
-			int scores[] = {0, 0, 0, 0, 0};
-			int currentLine = 0;
-			String line;
-			
-			while((line = playerFileR.readLine()) != null) {
-				int index = line.indexOf(":") + 1;
-				scores[currentLine] = Integer.parseInt(line.substring(index));
-				currentLine++;
-			}
-			player.setScoreHistory(new ScoreHistory(scores[0], scores[1], scores[2], scores[3], scores[4]));
-			
-			playerFileR.close();
-		} catch (IOException e) {
-			System.out.println(e);
-			e.printStackTrace();
+	private void setPlayerScoreHistory(Player player, String playerNumber) throws IOException {
+		BufferedReader playerFileR = new BufferedReader(new FileReader("src/br/com/uri/scopa/" + playerNumber + ".txt"));
+		int scores[] = {0, 0, 0, 0, 0};
+		int currentLine = 0;
+		String line;
+		
+		while((line = playerFileR.readLine()) != null) {
+			int index = line.indexOf(":") + 1;
+			scores[currentLine] = Integer.parseInt(line.substring(index));
+			currentLine++;
 		}
+		player.setScoreHistory(new ScoreHistory(scores[0], scores[1], scores[2], scores[3], scores[4]));
+		
+		playerFileR.close();
 	}
 	
 	private void setPlayerHand(Player player, Deck deck) {
