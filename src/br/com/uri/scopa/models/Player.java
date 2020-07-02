@@ -24,6 +24,10 @@ public class Player {
 	public void setPoints(int points) {
 		this.points = points;
 	}
+	
+	public void increasePoints(int points) {
+		this.points += points;
+	}
 
 	public ArrayList<Card> getHand() {
 		return hand;

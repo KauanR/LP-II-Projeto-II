@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import br.com.uri.scopa.controllers.DeckController;
 import br.com.uri.scopa.controllers.PlayerController;
+import br.com.uri.scopa.controllers.PointsController;
 import br.com.uri.scopa.controllers.RoundController;
 import br.com.uri.scopa.controllers.TableController;
 import br.com.uri.scopa.models.Card;
@@ -17,23 +18,31 @@ public class GameView {
 	private Player player2 = new Player();
 	private Deck deck = new Deck();
 	private Table table = new Table();
+	
 	private DeckController deckController = new DeckController();
 	private PlayerController playerController = new PlayerController();
 	private RoundController roundController = new RoundController();
 	private TableController tableController = new TableController();
+	private PointsController pointsController = new PointsController();
 	
 	public void init() {
-		deckController.initDeck(deck);
-		
-		System.out.println("Digite o nome do jogador 1: ");
-		playerController.initPlayer(player1, deck);
-		
-		System.out.println("Digite o nome do jogador 2: ");
-		playerController.initPlayer(player2, deck);
-		
-		tableController.initTable(table, deck);
-
-		this.gameStart();
+		boolean playAgain = true;
+		while(playAgain) {			
+			deckController.initDeck(deck);
+			
+			System.out.println("Digite o nome do jogador 1: ");
+			playerController.initPlayer(player1, deck);
+			
+			System.out.println("Digite o nome do jogador 2: ");
+			playerController.initPlayer(player2, deck);
+			
+			tableController.initTable(table, deck);
+			
+			this.gameStart();
+			
+			GameEndView gameEndView = new GameEndView();
+			playAgain = gameEndView.init(player1, player2);
+		}
 	}
 
 	private void gameStart() {
@@ -44,18 +53,12 @@ public class GameView {
 			this.playerMoveHandler(player2);
 			round++;
 		}
-		
-		this.gameEnd();
 	}
 	
 	private void playerMoveHandler(Player player) {
 		ArrayList<Card> moveCards = new ArrayList<Card>();
 		moveCards.addAll(this.roundController.playerMove(player, this.table));
 		this.playerController.checkEmptyHand(player, this.deck);
-		this.playerController.addScoreCards(player, moveCards);
-	}
-
-	private void gameEnd() {
-		
+		this.pointsController.checkScopa(player, moveCards, this.table);
 	}
 }

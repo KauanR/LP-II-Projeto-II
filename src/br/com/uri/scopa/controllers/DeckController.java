@@ -17,12 +17,12 @@ public class DeckController {
 	
 	private final ArrayList<String> names = new ArrayList<String>() {{
 		add("Ás");
-		add("2");
-		add("3");
-		add("4");
-		add("5");
-		add("6");
-		add("7");
+		add("Dois");
+		add("Três");
+		add("Quatro");
+		add("Cinco");
+		add("Seis");
+		add("Sete");
 		add("Valete");
 		add("Rainha");
 		add("Rei");

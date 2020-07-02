@@ -6,8 +6,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		GameView gamezinho = new GameView();
-		gamezinho.init();
+		GameView gameView = new GameView();
+		gameView.init();
 	}
 	
 }
