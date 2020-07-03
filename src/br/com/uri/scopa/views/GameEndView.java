@@ -2,49 +2,57 @@ package br.com.uri.scopa.views;
 
 import br.com.uri.scopa.controllers.PointsController;
 import br.com.uri.scopa.models.Player;
+import br.com.uri.scopa.models.ScoreHistory;
 
 public class GameEndView {
 	
 	private PointsController pointsController = new PointsController();
 
-	public boolean init(Player player1, Player player2) {
+	public void init(Player player1, Player player2) {
 		this.pointsController.finalPointsHandler(player1, player2);
 		this.endHandler(player1, player2);
-		return true;
 	}
 	
 	private void endHandler(Player player1, Player player2) {
+		ScoreHistory scorePlayer1 = player1.getScoreHistory();
+		ScoreHistory scorePlayer2 = player2.getScoreHistory();
+		System.out.println("Jogador " + player1.getName() + ": " + player1.getPoints());
+		System.out.println("Jogador " + player2.getName() + ": " + player2.getPoints());
 		this.checkResults(player1, player2);
 		this.checkHighestScores(player1, player2);
+		scorePlayer1.updateHistoryArchive(player1.getName());
+		scorePlayer2.updateHistoryArchive(player2.getName());
 	}
 
 	private void checkResults(Player player1, Player player2) {
-		// player1.txt numberOfGames++
-		// player2.txt numberOfGames++
+		ScoreHistory scorePlayer1 = player1.getScoreHistory();
+		ScoreHistory scorePlayer2 = player2.getScoreHistory();
 		if(player1.getPoints() == player2.getPoints()) {
-			// player1.txt draws++
-			// player2.txt draws++
-			// sysout empatou blablabla
+			scorePlayer1.setDraws(scorePlayer1.getDraws()+1);
+			scorePlayer2.setDraws(scorePlayer2.getDraws()+1);
+			System.out.println("Resultado: Empatou!");
 		} else if(player1.getPoints() > player2.getPoints()) {
-			// player1.txt wins++
-			// player2.txt looses++
-			// sysout player1 ganhou blablabla
+			scorePlayer1.setVictories(scorePlayer1.getVictories()+1);
+			scorePlayer2.setLosses(scorePlayer2.getLosses()+1);
+			System.out.println("Resultado: o jogador " + player1.getName() + " venceu!");
 		} else {
-			// player1.txt looses++
-			// player2.txt wins++
-			// sysout player2 ganhou blablabla
+			scorePlayer1.setLosses(scorePlayer1.getLosses()+1);
+			scorePlayer2.setVictories(scorePlayer2.getVictories()+1);
+			System.out.println("Resultado: o jogador " + player2.getName() + " venceu!");
 		}
 	}
 	
 	private void checkHighestScores(Player player1, Player player2) {
+		ScoreHistory scorePlayer1 = player1.getScoreHistory();
+		ScoreHistory scorePlayer2 = player2.getScoreHistory();
 		if(player1.getPoints() > player1.getScoreHistory().getHighestPontuation()) {
-			// player1.txt highestPontuation
-			// sysout player1 quebrou recorde blablabla
+			scorePlayer1.setHighestPontuation(player1.getPoints());
+			System.out.println("Parabéns ao jogador " + player1.getName() + " por quebrar seu recorde");
 		}
-		
+
 		if(player2.getPoints() > player2.getScoreHistory().getHighestPontuation()) {
-			// player2.txt highestPontuation
-			// sysout player2 quebrou recorde blablabla	
+			scorePlayer2.setHighestPontuation(player2.getPoints());
+			System.out.println("Parabéns ao jogador " + player2.getName() + " por quebrar seu recorde");
 		}
 	}
 }

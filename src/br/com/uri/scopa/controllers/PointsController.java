@@ -24,10 +24,10 @@ public class PointsController {
 	
 	public void checkScopa(Player player, ArrayList<Card> moveCards, Table table) {
 		if(table.getCards().isEmpty()) {
-			System.out.println("1");
+			System.out.println("PARABÉNS VÉI SCOPAAAAA!!!!!");
 			this.addScoreCards(player, moveCards, 1);
 		} else {
-			System.out.println(0);
+			System.out.println("É MEU CHEFE, NÃO VEIO A SCOPA NÃO!");
 			this.addScoreCards(player, moveCards, 0);	
 		}
 	}

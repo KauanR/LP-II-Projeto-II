@@ -14,19 +14,19 @@ import br.com.uri.scopa.models.Player;
 import br.com.uri.scopa.models.ScoreHistory;
 
 public class PlayerController extends Common {
-
-	public void initPlayer(Player player, String playerNumber, Deck deck) throws IOException  {
+	
+	public void initPlayer(Player player, Deck deck) throws IOException  {
 		this.setPlayerName(player);
 		this.setPlayerPoints(player);
 		this.setPlayerHand(player, deck);
-		this.setPlayerScoreHistory(player, playerNumber);
+		this.setPlayerScoreHistory(player);
 	}
 	
 	private void setPlayerName(Player player) {
 		player.setName(scanner.nextLine());
 		while(player.getName().equals("")) {
 			this.invalidValuePrint();
-			player.setName(scanner.nextLine());
+			player.setName(scanner.next());
 		}
 	}
 	
@@ -34,8 +34,9 @@ public class PlayerController extends Common {
 		player.setPoints(0);
 	}
 	
-	private void setPlayerScoreHistory(Player player, String playerNumber) throws IOException {
-		BufferedReader playerFileR = new BufferedReader(new FileReader("src/br/com/uri/scopa/" + playerNumber + ".txt"));
+	private void setPlayerScoreHistory(Player player) throws IOException {
+		player.setScoreHistory(new ScoreHistory());
+		BufferedReader playerFileR = new BufferedReader(player.getScoreHistory().createHistoryArchive(player.getName()));
 		int scores[] = {0, 0, 0, 0, 0};
 		int currentLine = 0;
 		String line;
@@ -61,7 +62,7 @@ public class PlayerController extends Common {
 	}
 	
 	public void checkEmptyHand(Player player, Deck deck) {
-		if(player.getHand().isEmpty()) {
+		if(player.getHand().isEmpty() && !deck.getCards().isEmpty()) {
 			ArrayList<Card> newHandCards = new ArrayList<Card>();
 			for(int i = 0; i < 3; i++) {
 				Card aux = deck.getCards().get(i);

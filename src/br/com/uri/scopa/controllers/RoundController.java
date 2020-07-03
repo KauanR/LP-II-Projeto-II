@@ -8,11 +8,9 @@ import br.com.uri.scopa.models.Table;
 
 public class RoundController extends Common {
 	
-	public ArrayList<Card> playerMove(Player player, Table table, int roundNumber) {
+	public ArrayList<Card> playerMove(Player player, Table table, int roundNumber, int deckSize) {
 		System.out.println("- - - - - - - - - Rodada " + roundNumber + "(Jogador: " + player.getName() + ") - - - - - - - - -");
-		
-		System.out.println("CARTAS DO JOGADOR:");
-		this.printCardArray(player.getHand(), false);
+		System.out.println("CARTAS RESTANTES DO BARALHO: " + deckSize);
 		System.out.println("CARTAS DA MESA:");
 		this.printCardArray(table.getCards(), false);
 		System.out.println("- - - - - - - - - - - - - - - - - -");
@@ -22,10 +20,13 @@ public class RoundController extends Common {
 		
 		while(move) {
 			moveCards.clear();
-			System.out.println("Quais cartas você irá juntar da sua mão?");
+			
+			if(table.getCards().isEmpty()) System.out.println("Qual carta você quer descartar?");
+			else System.out.println("Quais cartas você irá juntar da sua mão?");
+			
 			Card handCard = this.pickCard(player.getHand());
 			scanner.nextLine();
-			if(this.checkDiscard().equals("D")) {
+			if(this.checkDiscard().equals("D") || table.getCards().isEmpty()) {
 				player.removeHandCard(handCard);
 				table.addCard(handCard);
 				move = false;
@@ -34,7 +35,7 @@ public class RoundController extends Common {
 			moveCards.add(handCard);
 			
 			System.out.println("E quais da mesa?");
-			moveCards.addAll(pickTableCards(table.getCards()));
+			moveCards.addAll(pickTableCards(table.getCards(), handCard));
 			
 			move = this.checkMove(player, table, moveCards);
 		}
@@ -62,16 +63,19 @@ public class RoundController extends Common {
 		return aux;
 	}
 	
-	private ArrayList<Card> pickTableCards(ArrayList<Card> cards)  {
+	private ArrayList<Card> pickTableCards(ArrayList<Card> cards, Card handCard)  {
 		ArrayList<Card> cardsBackup = new ArrayList<Card>() {{
 			addAll(cards);
 		}};
 		ArrayList<Card> selectedCards = new ArrayList<Card>();
 		boolean aux = true;
+		int movePoints = handCard.getValue();
 		while(aux) {
 			Card selectedCard = this.pickCard(cardsBackup);
+			movePoints+=selectedCard.getValue();
 			selectedCards.add(selectedCard);
 			cardsBackup.remove(selectedCard);
+			System.out.println("Soma feita até agora: " + movePoints);
 			System.out.println("Adicionar outra?(s/n)");
 			aux = scanner.next().toLowerCase().equals("s");
 		}

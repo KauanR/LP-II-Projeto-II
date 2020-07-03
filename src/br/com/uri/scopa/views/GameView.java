@@ -16,51 +16,48 @@ import br.com.uri.scopa.models.Table;
 public class GameView {
 
 	private Player player1 = new Player();
-	private String p1Numbber = "player1";
 	private Player player2 = new Player();
-	private String p2Numbber = "player2";
 	private Deck deck = new Deck();
 	private Table table = new Table();
-	
+
 	private DeckController deckController = new DeckController();
 	private PlayerController playerController = new PlayerController();
 	private RoundController roundController = new RoundController();
 	private TableController tableController = new TableController();
 	private PointsController pointsController = new PointsController();
-	
-	private GameEndView gameEndView = new GameEndView();
-	
-	public void init() throws IOException {
-		boolean playAgain = true;
-		while(playAgain) {			
-			deckController.initDeck(deck);
-			
-			System.out.println("Digite o nome do Jogador 1: ");
-			playerController.initPlayer(player1, p1Numbber, deck);
-			
-			System.out.println("Digite o nome do Jogador 2: ");
-			playerController.initPlayer(player2, p2Numbber, deck);
-			
-			tableController.initTable(table, deck);
-			
-			this.gameStart();
 
-			playAgain = gameEndView.init(player1, player2);
-		}
+	private GameEndView gameEndView = new GameEndView();
+	private HistoryView historyView = new HistoryView();
+
+	public void init() throws IOException {
+		deckController.initDeck(deck);
+
+		System.out.println("Digite o nome do Jogador 1: ");
+		playerController.initPlayer(player1, deck);
+
+		System.out.println("Digite o nome do Jogador 2: ");
+		playerController.initPlayer(player2, deck);
+
+		tableController.initTable(table, deck);
+
+		this.gameStart();
+
+		gameEndView.init(player1, player2);
+		historyView.init();
 	}
 
 	private void gameStart() {
 		int roundNumber = 1;
-		while(!deckController.isEmpty(this.deck)) {
+		while (!deckController.isEmpty(this.deck)) {
 			this.playerMoveHandler(player1, roundNumber);
 			this.playerMoveHandler(player2, roundNumber);
 			roundNumber++;
 		}
 	}
-	
+
 	private void playerMoveHandler(Player player, int roundNumber) {
 		ArrayList<Card> moveCards = new ArrayList<Card>();
-		moveCards.addAll(this.roundController.playerMove(player, this.table, roundNumber));
+		moveCards.addAll(this.roundController.playerMove(player, this.table, roundNumber, this.deck.getCards().size()));
 		this.playerController.checkEmptyHand(player, this.deck);
 		this.pointsController.checkScopa(player, moveCards, this.table);
 	}
